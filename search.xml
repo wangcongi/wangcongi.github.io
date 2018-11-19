@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[python文件操作]]></title>
+    <url>%2F2018%2F11%2F19%2Fpython%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[python文件数据方面的操作，持续更新ingos模块，进行文件的查找，修改，删除等操作一般都要事先导入os模块 os.walk()这个方法返回的是一个三元tupple(dirpath(string), dirnames(list), filenames(list)), 其中第一个为起始路径， 第二个为起始路径下的文件夹, 第三个是起始路径下的文件 os.path.join(root,filename) os.path.splitext(filename) shutil.copy(dirs,newdirs) os.remove(filename) 1.文件批量复制例：将原文件夹及其子文件夹中所有后缀为nii的文件复制并重命名到新文件夹中定义copy_file函数123456789101112131415import osimport shutil#定义函数dir_path原文件夹路径，new_path新文件夹路径def copy_file(dir_path,new_path): i=0 for root, dirs, files in os.walk(dir_path): for filename in files: if os.path.splitext(filename)[1]=='.nii': dirs=os.path.join(root,filename) i=i+1 #计算文件个数 newname='AD_%d.nii'%(i) #定义新名字 newdirs=os.path.join(new_path,newname) shutil.copy(dirs,newdirs) print('sccussful copy'+dirs) print("该后缀名总文件个数：%d"%i) 2.文件批量删除os.remove(filename)例：删除某文件中后缀为.nii的所有文件1234567import osdef del_files(path): for root,dirs,files in os.walk(path): for name in files: if '.nii' in name:#判断某一字符串是否具有某一字串，可以使用in语句 os.remove(os.path.join(root,name)) print('Delete files:',os.path.join(root,name))]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>文件操作</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[pandas学习笔记]]></title>
+    <url>%2F2018%2F11%2F17%2Fpandas%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[本文主要记录平时使用的pandas包，持续更新ing 常用函数 读取文件 pandas.read_csv可以读取CSV（逗号分割）文件、文本类型的文件text、log类型到DataFramepd.read_csv() 12import pandas as pddata=pd.read_csv（ "Lung.txt" ，header=None) 写入文件 df.to_csv() 12#将数据bol写成csv文件，文件自动创建，mode参数默认为'w'，每次写入会覆盖整个文件，设置为'a'可在文件后追加数据 bol.to_csv('filename',mode='a',header=0) 字符匹配 string.str.contains() 123data[0].str.contains(a_r) #选择第0列的数据，看每行数据是否包含字符串a_r。返回布尔值data1=data[data[0].str.contains(a_r)] #筛选出布尔值为TRUE的数据块给data1，data数据块不变,data1得到筛选数据 去重复 df.drop_duplicates() 1234567DataFrame.drop_duplicates(subset=None, keep='first', inplace=False)#subset :用来指定特定的列，默认所有列 如subset=[0,1,2]#keep : &#123;‘first’, ‘last’, False&#125;, default ‘first’ 删除重复项并保留第一次出现的项#inplace :default False 是直接在原来数据上修改还是保留一个副本 例子 筛选数据 在文件中筛选某列包含字符str的行数据 123456789101112131415161718192021222324252627import pandas as pdimport numpy as np#读取两个文件data1 = pd.read_csv("Lung.txt",header=None)data = pd.read_csv("data_new.csv",header=None)#将data1的第零列转化为列表aa=list(data1[0])print(a)#循环读取每一列到数据中去查找for a_r in a: print(a_r) bol=data[data[0].str.contains(a_r)] #得到数据第零列包含特定类名的数据块#写入新csv文件bol.to_csv('data_new_1.csv',mode='a',header=0) 重复数据 去除文件中某列重复的行数据 1234567import pandas as pd #读取文件 data_new1= pd.read_csv("data_new_1.csv",header=None) #去重复行subset可设置第几列的值，keep=’first‘保留第一个重复行data=data_new1.drop_duplicates(subset=[1],keep='first')#存入新文件 data.to_csv('data_new_2.csv',header=0)]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>pandas</tag>
+        <tag>文本处理</tag>
+      </tags>
+  </entry>
+</search>
